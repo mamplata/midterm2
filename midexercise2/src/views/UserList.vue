@@ -13,13 +13,16 @@
             <!-- User List -->
             <div v-else>
                 <div v-if="!users.length" class="text-muted text-center">No users found.</div>
-                <transition-group name="fade" tag="ul" class="list-group">
-                    <li v-for="user in users" :key="user.id" class="list-group-item shadow-sm">
-                        <strong class="text-success">{{ user.name }}</strong>
-                        <br>
-                        <small class="text-muted">{{ user.email }}</small>
-                    </li>
-                </transition-group>
+                <!-- Wrap the entire list in a transition -->
+                <transition name="fade" appear>
+                    <ul v-if="users.length" class="list-group">
+                        <li v-for="user in users" :key="user.id" class="list-group-item shadow-sm">
+                            <strong class="text-success">{{ user.name }}</strong>
+                            <br>
+                            <small class="text-muted">{{ user.email }}</small>
+                        </li>
+                    </ul>
+                </transition>
             </div>
         </div>
     </div>
@@ -40,21 +43,25 @@ watchEffect(() => {
         loading.value = true;
         setTimeout(() => {
             loading.value = false;
-        }, 2000);
+        }, 1000);
     }
 });
 </script>
 
 <style>
-/* Smooth fade transition */
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity 2s ease-in-out;
-}
-
-.fade-enter,
+.fade-enter-from,
 .fade-leave-to {
     opacity: 0;
+}
+
+.fade-enter-to,
+.fade-leave-from {
+    opacity: 1;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: all 0.8s ease-in-out;
 }
 
 /* Styling for user list */
