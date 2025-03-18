@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-5">
+  <div class="container">
     <div class="row">
       <!-- Left Column: Registration Form -->
       <div class="col-md-6">
@@ -9,8 +9,10 @@
       <!-- Right Column: User List -->
       <div class="col-md-6">
         <UserList v-if="submitted" :users="users" />
-        <div class="mt-5 text-center" v-else>
-          <h1 class="text-success">User will be display here</h1>
+        <div v-else class="card p-4 shadow-lg mt-5">
+          <div class="card-body text-center">
+            <h1 class="text-success">User will be displayed here</h1>
+          </div>
         </div>
       </div>
     </div>
